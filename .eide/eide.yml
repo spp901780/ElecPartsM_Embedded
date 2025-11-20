@@ -27,6 +27,7 @@ virtualFolder:
                 - path: ElecPartsM_Embedded/Core/Src/usart.c
                 - path: ElecPartsM_Embedded/Core/Src/stm32f0xx_it.c
                 - path: ElecPartsM_Embedded/Core/Src/stm32f0xx_hal_msp.c
+                - path: ElecPartsM_Embedded/Core/Src/tim.c
               folders: []
         - name: UniHAL
           files:
@@ -34,7 +35,8 @@ virtualFolder:
             - path: UniHAL/Src/UART_UniHAL.c
           folders: []
         - name: App
-          files: []
+          files:
+            - path: ElecPartsM_Embedded/App/Src/UnitCommute.c
           folders: []
     - name: Drivers
       files: []
@@ -82,6 +84,7 @@ targets:
         - .cmsis/include
         - ElecPartsM_Embedded/MDK-ARM/RTE/_ElecPartsM_Embedded
         - UniHAL/Inc
+        - ElecPartsM_Embedded/App/Inc
       libList:
         - ElecPartsM_Embedded/UniHAL/Inc
     excludeList: []
