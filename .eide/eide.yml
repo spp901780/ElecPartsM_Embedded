@@ -1,0 +1,213 @@
+version: "4.1"
+name: ElecPartsM_Embedded
+type: ARM
+deviceName: null
+packDir: null
+srcDirs: []
+virtualFolder:
+  name: <virtual_root>
+  files: []
+  folders:
+    - name: Application
+      files: []
+      folders:
+        - name: MDK-ARM
+          files:
+            - path: ElecPartsM_Embedded/MDK-ARM/startup_stm32f030x8.s
+          folders: []
+        - name: User
+          files: []
+          folders:
+            - name: Core
+              files:
+                - path: ElecPartsM_Embedded/Core/Src/main.c
+                - path: ElecPartsM_Embedded/Core/Src/gpio.c
+                - path: ElecPartsM_Embedded/Core/Src/dma.c
+                - path: ElecPartsM_Embedded/Core/Src/spi.c
+                - path: ElecPartsM_Embedded/Core/Src/usart.c
+                - path: ElecPartsM_Embedded/Core/Src/stm32f0xx_it.c
+                - path: ElecPartsM_Embedded/Core/Src/stm32f0xx_hal_msp.c
+              folders: []
+    - name: Drivers
+      files: []
+      folders:
+        - name: STM32F0xx_HAL_Driver
+          files:
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_spi.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_spi_ex.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_exti.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.c
+          folders: []
+        - name: CMSIS
+          files:
+            - path: ElecPartsM_Embedded/Core/Src/system_stm32f0xx.c
+          folders: []
+dependenceList: []
+outDir: build
+miscInfo:
+  uid: aef843930a82d284731bb7ec5aa14e80
+targets:
+  ElecPartsM_Embedded:
+    cppPreprocessAttrs:
+      defineList:
+        - USE_HAL_DRIVER
+        - STM32F030x8
+      incList:
+        - ElecPartsM_Embedded/Core/Inc
+        - ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Inc
+        - ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Inc/Legacy
+        - ElecPartsM_Embedded/Drivers/CMSIS/Device/ST/STM32F0xx/Include
+        - ElecPartsM_Embedded/Drivers/CMSIS/Include
+        - .cmsis/include
+        - ElecPartsM_Embedded/MDK-ARM/RTE/_ElecPartsM_Embedded
+      libList: []
+    excludeList: []
+    toolchain: AC5
+    toolchainConfigMap:
+      AC5:
+        archExtensions: ""
+        cpuType: Cortex-M0
+        floatingPointHardware: none
+        options:
+          version: 4
+          afterBuildTasks: []
+          asm-compiler: {}
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            CXX_FLAGS: --diag_suppress=1 --diag_suppress=1295
+            C_FLAGS: --diag_suppress=1 --diag_suppress=1295
+            c99-mode: true
+            one-elf-section-per-function: true
+            optimization: level-3
+            warnings: all-warnings
+          global:
+            output-debug-info: enable
+            use-microLIB: false
+          linker:
+            $outputTaskExcludes:
+              - .bin
+            output-format: elf
+            ro-base: ""
+            rw-base: ""
+            xo-base: ""
+        scatterFilePath: ""
+        storageLayout:
+          RAM:
+            - id: 1
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 2
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 3
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 1
+              isChecked: true
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: IRAM
+            - id: 2
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: IRAM
+          ROM:
+            - id: 1
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 2
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 3
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 1
+              isChecked: true
+              isStartup: true
+              mem:
+                size: ""
+                startAddr: ""
+              tag: IROM
+            - id: 2
+              isChecked: true
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: IROM
+        useCustomScatterFile: false
+    uploadConfigMap:
+      JLink:
+        baseAddr: ""
+        bin: ""
+        cpuInfo:
+          cpuName: STM32F030C8 (allow opt. bytes)
+          vendor: ST
+        otherCmds: ""
+        proType: 1
+        speed: 8000
+      OpenOCD:
+        baseAddr: "0x08000000"
+        bin: ""
+        interface: cmsis-dap
+        target: stm32f0x
+      STLink:
+        address: ""
+        bin: ""
+        elFile: None
+        optionBytes: .eide/elecpartsm_embedded.st.option.bytes.ini
+        otherCmds: ""
+        proType: SWD
+        resetMode: default
+        runAfterProgram: true
+        speed: 4000
+      pyOCD:
+        baseAddr: "0x08000000"
+        bin: ""
+        config: .eide/elecpartsm_embedded.pyocd.yaml
+        otherCmds: ""
+        speed: 4M
+        targetName: cortex_m
+    uploader: OpenOCD
