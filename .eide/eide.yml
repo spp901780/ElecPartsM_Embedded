@@ -28,6 +28,14 @@ virtualFolder:
                 - path: ElecPartsM_Embedded/Core/Src/stm32f0xx_it.c
                 - path: ElecPartsM_Embedded/Core/Src/stm32f0xx_hal_msp.c
               folders: []
+        - name: UniHAL
+          files:
+            - path: UniHAL/Src/SPI_UniHAL..c
+            - path: UniHAL/Src/UART_UniHAL.c
+          folders: []
+        - name: App
+          files: []
+          folders: []
     - name: Drivers
       files: []
       folders:
@@ -73,9 +81,11 @@ targets:
         - ElecPartsM_Embedded/Drivers/CMSIS/Include
         - .cmsis/include
         - ElecPartsM_Embedded/MDK-ARM/RTE/_ElecPartsM_Embedded
-      libList: []
+        - UniHAL/Inc
+      libList:
+        - ElecPartsM_Embedded/UniHAL/Inc
     excludeList: []
-    toolchain: AC5
+    toolchain: AC6
     toolchainConfigMap:
       AC5:
         archExtensions: ""
@@ -176,6 +186,49 @@ targets:
               mem:
                 size: "0x0"
                 startAddr: "0x0"
+              tag: IROM
+        useCustomScatterFile: false
+      AC6:
+        archExtensions: ""
+        cpuType: Cortex-M0
+        floatingPointHardware: none
+        options:
+          version: 3
+          afterBuildTasks: []
+          asm-compiler:
+            $use: asm-auto
+            misc-controls: ""
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            language-c: c99
+            language-cpp: c++11
+            link-time-optimization: false
+            optimization: level-0
+          global:
+            output-debug-info: enable
+            use-microLIB: false
+          linker:
+            $outputTaskExcludes:
+              - .bin
+            misc-controls: --diag_suppress=L6329
+            output-format: elf
+        scatterFilePath: <YOUR_SCATTER_FILE>.sct
+        storageLayout:
+          RAM:
+            - id: 1
+              isChecked: true
+              mem:
+                size: "0x5000"
+                startAddr: "0x20000000"
+              noInit: false
+              tag: IRAM
+          ROM:
+            - id: 1
+              isChecked: true
+              isStartup: true
+              mem:
+                size: "0x10000"
+                startAddr: "0x08000000"
               tag: IROM
         useCustomScatterFile: false
     uploadConfigMap:
