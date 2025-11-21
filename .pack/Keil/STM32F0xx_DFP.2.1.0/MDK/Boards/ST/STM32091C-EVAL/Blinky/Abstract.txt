@@ -1,0 +1,21 @@
+The 'Blinky' project is a simple demo program for
+ST 'STM32F091VC' microcontroller using ST 'STM32091C-EVAL' Board.
+Compliant to Cortex Microcontroller Software Interface Standard (CMSIS).
+
+Example functionality:
+ - Clock Settings:
+   - HSE    =  8 MHz
+   - SYSCLK = 48 MHz
+
+ - four LEDs blink.
+ - blinking is paused while holding down the Tamper button.
+
+
+The Blinky program is available in different targets:
+ - Debug:
+   - Compiler optimization Level 1
+   - Enabled Event Recorder
+   - Keil RTX5 variant 'Source'
+ - Release:
+   - Compiler optimization Level 3
+   - Keil RTX5 variant 'Library'

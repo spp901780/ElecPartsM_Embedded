@@ -1,9 +1,11 @@
 version: "4.1"
 name: ElecPartsM_Embedded
 type: ARM
-deviceName: null
-packDir: null
-srcDirs: []
+deviceName: STM32F030C8Tx
+packDir: .pack/Keil/STM32F0xx_DFP.2.1.0
+srcDirs:
+  - UniHAL
+  - ElecPartsM_Embedded/App
 virtualFolder:
   name: <virtual_root>
   files: []
@@ -24,20 +26,11 @@ virtualFolder:
                 - path: ElecPartsM_Embedded/Core/Src/gpio.c
                 - path: ElecPartsM_Embedded/Core/Src/dma.c
                 - path: ElecPartsM_Embedded/Core/Src/spi.c
+                - path: ElecPartsM_Embedded/Core/Src/tim.c
                 - path: ElecPartsM_Embedded/Core/Src/usart.c
                 - path: ElecPartsM_Embedded/Core/Src/stm32f0xx_it.c
                 - path: ElecPartsM_Embedded/Core/Src/stm32f0xx_hal_msp.c
-                - path: ElecPartsM_Embedded/Core/Src/tim.c
               folders: []
-        - name: UniHAL
-          files:
-            - path: UniHAL/Src/SPI_UniHAL..c
-            - path: UniHAL/Src/UART_UniHAL.c
-          folders: []
-        - name: App
-          files:
-            - path: ElecPartsM_Embedded/App/Src/UnitCommute.c
-          folders: []
     - name: Drivers
       files: []
       folders:
@@ -58,6 +51,8 @@ virtualFolder:
             - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c
             - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.c
             - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_exti.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.c
+            - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.c
             - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c
             - path: ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.c
           folders: []
@@ -76,6 +71,7 @@ targets:
         - USE_HAL_DRIVER
         - STM32F030x8
       incList:
+        - .
         - ElecPartsM_Embedded/Core/Inc
         - ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Inc
         - ElecPartsM_Embedded/Drivers/STM32F0xx_HAL_Driver/Inc/Legacy
@@ -85,10 +81,9 @@ targets:
         - ElecPartsM_Embedded/MDK-ARM/RTE/_ElecPartsM_Embedded
         - UniHAL/Inc
         - ElecPartsM_Embedded/App/Inc
-      libList:
-        - ElecPartsM_Embedded/UniHAL/Inc
+      libList: []
     excludeList: []
-    toolchain: AC6
+    toolchain: AC5
     toolchainConfigMap:
       AC5:
         archExtensions: ""
@@ -120,75 +115,19 @@ targets:
         storageLayout:
           RAM:
             - id: 1
-              isChecked: false
-              mem:
-                size: "0x0"
-                startAddr: "0x0"
-              noInit: false
-              tag: RAM
-            - id: 2
-              isChecked: false
-              mem:
-                size: "0x0"
-                startAddr: "0x0"
-              noInit: false
-              tag: RAM
-            - id: 3
-              isChecked: false
-              mem:
-                size: "0x0"
-                startAddr: "0x0"
-              noInit: false
-              tag: RAM
-            - id: 1
               isChecked: true
               mem:
-                size: "0x0"
-                startAddr: "0x0"
-              noInit: false
-              tag: IRAM
-            - id: 2
-              isChecked: false
-              mem:
-                size: "0x0"
-                startAddr: "0x0"
+                size: "0x00002000"
+                startAddr: "0x20000000"
               noInit: false
               tag: IRAM
           ROM:
             - id: 1
-              isChecked: false
-              isStartup: false
-              mem:
-                size: "0x0"
-                startAddr: "0x0"
-              tag: ROM
-            - id: 2
-              isChecked: false
-              isStartup: false
-              mem:
-                size: "0x0"
-                startAddr: "0x0"
-              tag: ROM
-            - id: 3
-              isChecked: false
-              isStartup: false
-              mem:
-                size: "0x0"
-                startAddr: "0x0"
-              tag: ROM
-            - id: 1
               isChecked: true
               isStartup: true
               mem:
-                size: ""
-                startAddr: ""
-              tag: IROM
-            - id: 2
-              isChecked: true
-              isStartup: false
-              mem:
-                size: "0x0"
-                startAddr: "0x0"
+                size: "0x00010000"
+                startAddr: "0x08000000"
               tag: IROM
         useCustomScatterFile: false
       AC6:
@@ -200,16 +139,14 @@ targets:
           afterBuildTasks: []
           asm-compiler:
             $use: asm-auto
-            misc-controls: ""
           beforeBuildTasks: []
           c/cpp-compiler:
             language-c: c99
             language-cpp: c++11
-            link-time-optimization: false
             optimization: level-0
+            warnings: ac5-like-warnings
           global:
             output-debug-info: enable
-            use-microLIB: false
           linker:
             $outputTaskExcludes:
               - .bin
@@ -221,7 +158,7 @@ targets:
             - id: 1
               isChecked: true
               mem:
-                size: "0x5000"
+                size: "0x00002000"
                 startAddr: "0x20000000"
               noInit: false
               tag: IRAM
@@ -230,7 +167,7 @@ targets:
               isChecked: true
               isStartup: true
               mem:
-                size: "0x10000"
+                size: "0x00010000"
                 startAddr: "0x08000000"
               tag: IROM
         useCustomScatterFile: false

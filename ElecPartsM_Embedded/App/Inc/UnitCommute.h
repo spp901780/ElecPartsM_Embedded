@@ -18,26 +18,23 @@ enum UC_SendDirection{
     UC_Upstream = 1
 };
 
-typedef struct{
+typedef struct UnitData_t{
     uint8_t id;
-} UnitData_t;
+} UnitData;
 
-typedef struct{
+typedef struct UC_Frame_t{
     enum UC_SendDirection SendDirection; // 0: downstream, 1: upstream
     uint8_t id;
     uint8_t Cmd_Msg;
     uint8_t OptDataLength;
     uint8_t *OptData;
-} UC_Frame_t;
+} UC_Frame;
 
 #define UC_FRAME_MAX_SIZE 10
-uint8_t UC_FrameBuf[UC_FRAME_MAX_SIZE];
 
-extern UnitData_t UnitData;
+extern UnitData unitData;
 
-void Send_UCFrame(UC_Frame_t frame);
-
-void ProcessUC_SetID(uint8_t id);
+void ProcessUC_Frame();
 
 
 #endif /* __UnitCommute_H__ */
