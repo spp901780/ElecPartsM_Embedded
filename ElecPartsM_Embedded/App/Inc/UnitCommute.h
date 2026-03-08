@@ -1,5 +1,5 @@
-#ifndef __UnitCommute_H__
-#define __UnitCommute_H__
+#ifndef UnitCommute_H__
+#define UnitCommute_H__
 #include "main.h"
 
 enum UC_Command{
@@ -34,7 +34,7 @@ typedef struct UC_Frame_t{
 
 extern UnitData unitData;
 
-void ProcessUC_Frame();
+void ProcessUC_Frame(uint8_t length);
 
 
-#endif /* __UnitCommute_H__ */
+#endif /* UnitCommute_H__ */

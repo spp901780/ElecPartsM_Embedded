@@ -82,7 +82,10 @@ targets:
         - UniHAL/Inc
         - ElecPartsM_Embedded/App/Inc
       libList: []
-    excludeList: []
+    excludeList:
+      - UniHAL/Inc
+      - UniHAL/Src
+      - ElecPartsM_Embedded/App/Inc/IT_Callback.c
     toolchain: AC5
     toolchainConfigMap:
       AC5:

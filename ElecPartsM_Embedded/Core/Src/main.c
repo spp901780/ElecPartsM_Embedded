@@ -26,7 +26,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "WS2812B_Driver.h"
+#include "UnitCommute.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +48,15 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+WS2812B ledStrip = {
+    .LED_Num = 8,
+    .Status = WS2812B_Idle,
+    .LEDs = {0}
+};
 
+extern uint8_t Uart_ByteReceiveDirection;
+extern uint8_t UC_FrameBuf[UC_FRAME_MAX_SIZE];
+extern uint8_t RxBuf;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -104,8 +113,24 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    if(Uart_ByteReceiveDirection != 0){
+      static uint8_t lastReceiveDirection = 0, receiveCount = 0;
+      if(receiveCount == 0){
+        lastReceiveDirection = Uart_ByteReceiveDirection;
+      }
+      if(Uart_ByteReceiveDirection == lastReceiveDirection && receiveCount < UC_FRAME_MAX_SIZE){
+        if(RxBuf == '\n'){
+          ProcessUC_Frame(receiveCount);
+          receiveCount = 0;
+        }else{
+          UC_FrameBuf[receiveCount++] = RxBuf;
+        } 
+      }else{
+        receiveCount = 0;
+      }
+      Uart_ByteReceiveDirection = 0;
+    }
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

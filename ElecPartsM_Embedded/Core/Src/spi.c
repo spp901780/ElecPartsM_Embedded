@@ -51,7 +51,7 @@ void MX_SPI1_Init(void)
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -75,16 +75,24 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
     __HAL_RCC_SPI1_CLK_ENABLE();
 
     __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
     /**SPI1 GPIO Configuration
     PA5     ------> SPI1_SCK
-    PA7     ------> SPI1_MOSI
+    PB5     ------> SPI1_MOSI
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_7;
+    GPIO_InitStruct.Pin = GPIO_PIN_5;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF0_SPI1;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_5;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF0_SPI1;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     /* SPI1 DMA Init */
     /* SPI1_TX Init */
@@ -92,10 +100,10 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
     hdma_spi1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
     hdma_spi1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
     hdma_spi1_tx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_spi1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_spi1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+    hdma_spi1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+    hdma_spi1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
     hdma_spi1_tx.Init.Mode = DMA_NORMAL;
-    hdma_spi1_tx.Init.Priority = DMA_PRIORITY_LOW;
+    hdma_spi1_tx.Init.Priority = DMA_PRIORITY_MEDIUM;
     if (HAL_DMA_Init(&hdma_spi1_tx) != HAL_OK)
     {
       Error_Handler();
@@ -122,9 +130,11 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
 
     /**SPI1 GPIO Configuration
     PA5     ------> SPI1_SCK
-    PA7     ------> SPI1_MOSI
+    PB5     ------> SPI1_MOSI
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5|GPIO_PIN_7);
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5);
+
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_5);
 
     /* SPI1 DMA DeInit */
     HAL_DMA_DeInit(spiHandle->hdmatx);

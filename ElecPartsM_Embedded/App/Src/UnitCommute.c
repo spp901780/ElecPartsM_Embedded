@@ -1,5 +1,4 @@
 #include "UnitCommute.h"
-#include "UART_UniHAL.h"
 #include "usart.h"
 
 UnitData unitData;
@@ -58,14 +57,14 @@ static void Send_UCFrame(UC_Frame frame){
 
     if(UC_LastFrameDirection == 1){
         if(frame.SendDirection == UC_Upstream)
-            UART_Transmit(&huart1, buf, bufLength);
+            HAL_UART_Transmit(&huart1, buf, bufLength, HAL_MAX_DELAY);
         else
-            UART_Transmit(&huart2, buf, bufLength);
+            HAL_UART_Transmit(&huart2, buf, bufLength, HAL_MAX_DELAY);
     }else if(UC_LastFrameDirection == 2){
         if(frame.SendDirection == UC_Upstream)
-            UART_Transmit(&huart2, buf, bufLength);
+            HAL_UART_Transmit(&huart2, buf, bufLength, HAL_MAX_DELAY);
         else
-            UART_Transmit(&huart1, buf, bufLength);
+            HAL_UART_Transmit(&huart1, buf, bufLength, HAL_MAX_DELAY);
     }
 }
 
